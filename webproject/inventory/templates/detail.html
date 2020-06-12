@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} {{item.item_name}}{% endblock %}
+
+{% block body %}
+<h1>{{item.item_name}} - {{item.item_count}} Items</h1>
+<br>
+<br>
+
+
+{% for itemmodel in item.itemmodel_set.all %}
+<p>{{itemmodel.model_name}}   -    {{itemmodel.item_count}}     -    {{itemmodel.item_price}}</p>
+
+{% endfor %}
+
+
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title%} Your Inventory {% endblock %}
+{% block body %}
+
+{% if item_list %}
+
+
+<table style="width:100%">
+  <tr>
+    <th>Item Name</th>
+    <th>No. of Models</th>
+    <th>Total Available</th>
+  </tr>
+  {% for item in item_list %}
+  <tr>
+    <td>  <a href="{% url 'inventory:detail' item.id %}">{{item.item_name}}</a></td>
+    <td>{{item.item_count}}</td>
+    <td>{{item.total_unit}}</td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+
+{% else %}
+      <p>No items are available</p>
+
+{% endif %}
+
+<br>
+<br>
+<br>
+<footer>
+
+  <h2>Add new Item</h2>
+
+  <div class="container">
+      <form action="{% url 'inventory:add_model' %}" method="POST">
+          <br>
+          {% csrf_token %}
+          <label for="mname">Model Name</label>
+          <input type="text" id="mname" name="mname" value="">
+          <label for="itemno">No of Items</label>
+          <input type="text" id="itemno" name="itemno" value="">
+          <label for="itemprice">Price of Each Item</label>
+          <input type="text" id="itemprice" name="itemprice" value="">
+          <label for="itemtype">Item Type</label>
+          <select name="itemtype">
+            {% for item in item_list%}
+            <option value="{{forloop.counter }}">{{item.item_name}}</option>
+            {% endfor %}
+
+          </select>
+      <button type="submit" class="btn btn-primary" name="button">Add Item</button>
+
+      </form>
+
+  </div>
+
+</footer>
+
+
+
+
+{% endblock %}
